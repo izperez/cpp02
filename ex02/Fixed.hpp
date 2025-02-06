@@ -6,7 +6,7 @@
 /*   By: izperez <izperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:05:57 by izperez           #+#    #+#             */
-/*   Updated: 2025/02/04 11:05:56 by izperez          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:42:37 by izperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ class Fixed
 {
 	public:
 		Fixed();
+		Fixed(float _value);
 		~Fixed();
-		Fixed(Fixed &src);
+		Fixed(const Fixed &src);
 		Fixed &operator=(const Fixed &rhs);
 		float toFloat() const;
 		int	toInt() const;
@@ -33,17 +34,20 @@ class Fixed
 		bool operator<=(const Fixed &obj)const;
 		bool operator!=(const Fixed &obj)const;
 		bool operator>(const Fixed &obj)const;
-		bool operator>>(const Fixed &obj)const;
 		bool operator<(const Fixed &obj)const;
-		bool operator<<(const Fixed &obj)const;
-		Fixed &min(Fixed n1, Fixed n2);
-		Fixed &min(Fixed const n1, Fixed const n2);
-		Fixed &max(Fixed n1, Fixed n2);
-		Fixed &max(Fixed const n1, Fixed const n2);
-
+		static Fixed &min(Fixed n1, Fixed n2);
+		static const Fixed &min(const Fixed &n1, const Fixed &n2);
+		static Fixed &max(Fixed n1, Fixed n2);
+		static const Fixed &max(const Fixed &n1, const Fixed &n2);
+		Fixed& operator++();
+		Fixed operator++(int);
+		
 	private:
-		int _bits = 8;
+		static const int _bits = 8;
 		float _value;
 };
+		
+	std::ostream &operator<<(std::ostream &out, const Fixed &obj);
+
 
 #endif

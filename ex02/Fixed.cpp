@@ -6,13 +6,17 @@
 /*   By: izperez <izperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:05:55 by izperez           #+#    #+#             */
-/*   Updated: 2025/02/04 11:05:31 by izperez          ###   ########.fr       */
+/*   Updated: 2025/02/06 11:41:52 by izperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-Fixed::Fixed(): _value(0){
+Fixed::Fixed(){
+	std::cout << "Constructor called!" << std::endl;
+}
+
+Fixed::Fixed(float _value){
 	std::cout << "Constructor called!" << std::endl;
 }
 
@@ -20,7 +24,7 @@ Fixed::~Fixed(){
 	std::cout << "Destructor called!" << std::endl;
 }
 
-Fixed::Fixed(Fixed &src)
+Fixed::Fixed(const Fixed &src)
 {
 	*this = src;
 }
@@ -33,11 +37,11 @@ Fixed &Fixed::operator=(const Fixed &rhs){
 }
 
 float Fixed::toFloat() const{
-	return (static_cast<float>(this->_value/ (1 << _bits));
+	return (static_cast<float>(this->_value / (1 << _bits)));
 }
 
 int	Fixed::toInt() const{
-	return (static_cast<int>(this->_value) / (1 >> _bits));
+	return (this->_value / (1 << _bits));
 }
 
 Fixed Fixed::operator+(const Fixed &obj)
@@ -81,44 +85,41 @@ bool Fixed::operator>(const Fixed &obj)const
 	return (this->_value > obj._value);
 }
 
-bool Fixed::operator>>(const Fixed &obj)const
-{
-	return (this->_value >> obj._value);
-}
-
-bool Fixed::operator>(const Fixed &obj)const
+bool Fixed::operator<(const Fixed &obj)const
 {
 	return (this->_value < obj._value);
 }
 
-bool Fixed::operator>>(const Fixed &obj)const
-{
-	return (this->value << obj._value);
-}
-
-Fixed &min(Fixed n1, Fixed n2)
-{
-	if (n1 < n2)
-		return (n1);
-	return (n2);
-}
-Fixed &min(Fixed const n1, Fixed const n2)
+Fixed min(Fixed n1, Fixed n2)
 {
 	if (n1 < n2)
 		return (n1);
 	return (n2);
 }
 
-Fixed &max(Fixed n1, Fixed n2)
+const Fixed &min(const Fixed &n1, const Fixed &n2)
+{
+	if (n1 < n2)
+		return (n1);
+	return (n2);
+}
+
+Fixed max(Fixed n1, Fixed n2)
 {
 	if (n1 < n2)
 		return (n2);
 	return (n1);
 }
 
-Fixed &max(Fixed const n1, Fixed const n2)
+const Fixed &max(const Fixed &n1, const Fixed &n2)
 {
 	if (n1 < n2)
 		return (n2);
 	return (n1);
+}
+
+std::ostream &operator<<(std::ostream &out, const Fixed &obj)
+{
+	out << obj.toFloat();
+	return (out);
 }

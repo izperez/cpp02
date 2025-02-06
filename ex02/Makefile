@@ -6,13 +6,13 @@
 #    By: izperez <izperez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 12:06:03 by izperez           #+#    #+#              #
-#    Updated: 2025/01/23 12:12:19 by izperez          ###   ########.fr        #
+#    Updated: 2025/02/06 10:49:05 by izperez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ex02
 CC = g++
-CFLAGS = -Wall -Werror -Wextra std=c++98
+CFLAGS = -Wall -Werror -Wextra -std=c++98
 SRCS = main.cpp Fixed.cpp
 OBJS = $(SRCS:.cpp=.o)
 INCLUDE = Fixed.hpp
@@ -20,7 +20,7 @@ INCLUDE = Fixed.hpp
 .SILENT:
 all: $(NAME)
 
-$(SRCS): $(OBJS)
+$(NAME): $(OBJS)
 		$(CC) $(CFLAGS) -o $(OBJS) $(NAME) -I.
 		@echo "\033[32mOK Compiled!\033[0m"
 
