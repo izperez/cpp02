@@ -6,7 +6,7 @@
 #    By: izperez <izperez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/23 12:06:03 by izperez           #+#    #+#              #
-#    Updated: 2025/02/06 10:49:05 by izperez          ###   ########.fr        #
+#    Updated: 2025/02/17 11:31:29 by izperez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCLUDE = Fixed.hpp
 all: $(NAME)
 
 $(NAME): $(OBJS)
-		$(CC) $(CFLAGS) -o $(OBJS) $(NAME) -I.
+		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -I.
 		@echo "\033[32mOK Compiled!\033[0m"
 
 $(OBJS): $(SRCS)

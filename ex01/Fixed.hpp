@@ -6,7 +6,7 @@
 /*   By: izperez <izperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:50:24 by izperez           #+#    #+#             */
-/*   Updated: 2025/01/22 11:08:45 by izperez          ###   ########.fr       */
+/*   Updated: 2025/02/17 11:16:27 by izperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ class Fixed
 		int	toInt() const;
 
 	private:
-		int bits = 8;
-		float point;
+		static const int bits = 8;
+		int point;
 };
 
 //Overload of the insertion (<<) operator

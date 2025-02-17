@@ -6,13 +6,13 @@
 /*   By: izperez <izperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 10:50:26 by izperez           #+#    #+#             */
-/*   Updated: 2025/01/22 11:08:55 by izperez          ###   ########.fr       */
+/*   Updated: 2025/02/17 11:19:41 by izperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-Fixed::Fixed(){
+Fixed::Fixed(): point(0){
 	std::cout << "\033[32m Default constructor called\033[0m" << std::endl;
 }
 
@@ -21,7 +21,7 @@ Fixed::~Fixed(){
 }
 
 Fixed::Fixed(const Fixed &src){
-	std::cout << "\033[32m Default constructor called\033[0m" << std::endl;
+	std::cout << "Copy constructor called" << std::endl;
 	*this = src;
 }
 
@@ -32,14 +32,12 @@ Fixed &Fixed::operator=(const Fixed &rhs){
 	return (*this);
 }
 
-Fixed::Fixed(const int value){
+Fixed::Fixed(const int value): point(value << bits) {
 	std::cout << "Int constructor called" << std::endl;
-	this->point = value << bits;
 }
 
-Fixed::Fixed(const float value){
+Fixed::Fixed(const float value): point(static_cast<int>(roundf(value*(1 << bits)))){
 	std::cout << "Float constructor called" << std::endl;
-	this->point = static_cast<int>(roundf(value * (1 << bits)));
 }
 
 float Fixed::toFloat() const{
@@ -47,7 +45,7 @@ float Fixed::toFloat() const{
 }
 
 int	Fixed::toInt() const{
-	return (static_cast<int>(this->point) / (1 >> bits));
+	return (point / (1 << bits));
 }
 
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed)

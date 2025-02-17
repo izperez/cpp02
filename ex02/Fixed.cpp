@@ -6,17 +6,13 @@
 /*   By: izperez <izperez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 12:05:55 by izperez           #+#    #+#             */
-/*   Updated: 2025/02/06 11:41:52 by izperez          ###   ########.fr       */
+/*   Updated: 2025/02/17 11:44:04 by izperez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-Fixed::Fixed(){
-	std::cout << "Constructor called!" << std::endl;
-}
-
-Fixed::Fixed(float _value){
+Fixed::Fixed(): _value(0){
 	std::cout << "Constructor called!" << std::endl;
 }
 
@@ -25,8 +21,17 @@ Fixed::~Fixed(){
 }
 
 Fixed::Fixed(const Fixed &src)
-{
+{ 
+	std::cout << "Copy constructor called!" << std::endl;
 	*this = src;
+}
+
+Fixed::Fixed(const int value): _value(value << _bits) {
+	std::cout << "Int constructor called" << std::endl;
+}
+
+Fixed::Fixed(const float value): _value(static_cast<int>(roundf(value*(1 << _bits)))){
+	std::cout << "Float constructor called" << std::endl;
 }
 
 Fixed &Fixed::operator=(const Fixed &rhs){
@@ -37,11 +42,11 @@ Fixed &Fixed::operator=(const Fixed &rhs){
 }
 
 float Fixed::toFloat() const{
-	return (static_cast<float>(this->_value / (1 << _bits)));
+	return (static_cast<float>(this->_value) / (1 << _bits));
 }
 
 int	Fixed::toInt() const{
-	return (this->_value / (1 << _bits));
+	return (_value / (1 << _bits));
 }
 
 Fixed Fixed::operator+(const Fixed &obj)
@@ -90,28 +95,28 @@ bool Fixed::operator<(const Fixed &obj)const
 	return (this->_value < obj._value);
 }
 
-Fixed min(Fixed n1, Fixed n2)
+Fixed &Fixed::min(Fixed &n1, Fixed &n2)
 {
 	if (n1 < n2)
 		return (n1);
 	return (n2);
 }
 
-const Fixed &min(const Fixed &n1, const Fixed &n2)
+const Fixed &Fixed::min(const Fixed &n1, const Fixed &n2)
 {
 	if (n1 < n2)
 		return (n1);
 	return (n2);
 }
 
-Fixed max(Fixed n1, Fixed n2)
+Fixed &Fixed::max(Fixed &n1, Fixed &n2)
 {
 	if (n1 < n2)
 		return (n2);
 	return (n1);
 }
 
-const Fixed &max(const Fixed &n1, const Fixed &n2)
+const Fixed &Fixed::max(const Fixed &n1, const Fixed &n2)
 {
 	if (n1 < n2)
 		return (n2);
@@ -122,4 +127,19 @@ std::ostream &operator<<(std::ostream &out, const Fixed &obj)
 {
 	out << obj.toFloat();
 	return (out);
+}
+
+//Prefix
+Fixed &Fixed::operator++()
+{
+	++this->_value;
+	return (*this);
+}
+
+//Sufix
+Fixed Fixed::operator++(int)
+{
+	Fixed temp = *this;
+	++(*this);
+	return (temp);
 }
